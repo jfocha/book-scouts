@@ -1,3 +1,4 @@
+// by Deepa Krishnan and sindhu Pillai 
 const { AuthenticationError } = require('apollo-server-express');
 const { User } = require('../models');
 const { signToken } = require('../utils/auth');
@@ -50,21 +51,33 @@ const resolvers = {
       const token = signToken(user);
       return { token, user };
     },
-    
-    addFriend: async (parent, { friendId }, context) => {
-      if (context.user) {
-        const updatedUser = await User.findOneAndUpdate(
-          { _id: context.user._id },
-          { $addToSet: { friends: friendId } },
-          { new: true }
-        ).populate('friends');
+     // check out a book 
+  checkoutBook(parent,{bookId},context){
 
-        return updatedUser;
-      }
-
-      throw new AuthenticationError('You need to be logged in!');
-    }
+    if (context.user) {
+    const checkoutBooks = await User.findOneAndUpdate(  
+       { _id: context.user._id },
+       // check for book id 
+       // decrement the book count 
+       { new: true, runValidators: true }
+      );
+      return checkoutBooks;
   }
-};
+  throw new AuthenticationError("checkout resolver function : -You need to be logged in!");    
+  },
+  removeBook: async (parent, { bookId }, context) => {
+    if (context.user) {
+        const updatedUser = await User.findOneAndUpdate(
+            { _id: context.user._id },
+            { $pull: { savedBooks: {bookId: bookId } } },
+            { new: true }
+        );
+        return updatedUser;        
+    }
+    throw new AuthenticationError("You need to be logged in!");
+  }   
+}
+}
+
 
 module.exports = resolvers;

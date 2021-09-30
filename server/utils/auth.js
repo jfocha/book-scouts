@@ -1,3 +1,4 @@
+// Joseph 
 const jwt = require('jsonwebtoken');
 
 const secret = 'mysecretsshhhhh';
