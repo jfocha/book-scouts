@@ -4,6 +4,7 @@ const {
   getSingleUser,
   saveBook,
   deleteBook,
+  checkoutBook,
   login,
 } = require('../../controllers/user-controller');
 
@@ -18,5 +19,8 @@ router.route('/login').post(login);
 router.route('/me').get(authMiddleware, getSingleUser);
 // remove a book from wish list 
 router.route('/books/:bookId').delete(authMiddleware, deleteBook);
+
+// Include a checkout books 
+router.route('/books/:bookId').post(authMiddleware, checkoutBook);
 
 module.exports = router;
