@@ -18,10 +18,6 @@ router.route('/').post(createUser).put(authMiddleware, saveBook);
 router.route('/login').post(login);
 // get a user 
 router.route('/me').get(authMiddleware, getSingleUser);
-// remove a book from wish list 
-router.route('/books/:bookId').delete(authMiddleware, deleteBook);
 
-// Include a checkout books 
-router.route('/books/:bookId').post(authMiddleware, checkoutBook);
 
 module.exports = router;

@@ -1,32 +1,35 @@
+//Deepa 
 const { Schema } = require('mongoose');
 
 
 const bookSchema = new Schema({
-    authors: [
-        {
-            type: String,
-        },
-    ],
-    description: {
+    title: 
+    {
         type: String,
         required: true,
     },
-    // saved book id from Amazon or google  if using endpoint 
+    author:
+    {
+        type: String
+    },
+    description: 
+    {
+        type: String,
+        default :'None'
+    },
+    //ISBN number 
     bookId: {
         type: String,
         required: true,
     },
-    image: {
-        type: String,
-    },
     stockCount: {
-        type: Int,
+        type: Number,
 	required :true,
     },
-    title: {
-        type: String,
-        required: true,
-    },
-});
+    location:{
+        type:Number,
+        required:true
+    }   
+}, { timestamps:true});
 
 module.exports = bookSchema;

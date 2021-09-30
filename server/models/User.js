@@ -1,11 +1,18 @@
+// Deepa 
 const { Schema, model } = require('mongoose');
 const bcrypt = require('bcrypt');
 
-// import schema from Book.js
-const bookSchema = require('./Book');
 
 const userSchema = new Schema(
     {
+        firstName :{
+            type:String,
+            required:true
+        },
+        lastName :{
+            type:String,
+            required:true
+        }, 
         username: {
             type: String,
             required: true,
@@ -20,6 +27,10 @@ const userSchema = new Schema(
         password: {
             type: String,
             required: true,
+        },
+        admin:   {
+            type: Boolean,
+            default: false
         },
         // set books checkout  to be an array of data that adheres to the bookSchema
         booksCheckedOut: [bookSchema],

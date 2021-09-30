@@ -82,5 +82,9 @@ module.exports = {
       }
       return res.json(checkoutBooks);
 
+  },
+  async addNewBook({body},res){
+       
+
   }
 };
