@@ -12,8 +12,8 @@
 
 
 import { useState } from 'react';
-import Button from '@material-ui/core/Button';
 import ModalDialog from './ModalDialog';
+import PrimarySearchAppBar from './Navbar';
 
 const App = () => {
   // declare a new state variable for modal open
@@ -31,11 +31,8 @@ const App = () => {
 
   return (
     <div className="App">
-      <Button variant="contained" color="primary" onClick={handleOpen}>
-        Signup
-      </Button>
-      // display the modal and pass props
       <ModalDialog open={open} handleClose={handleClose} />
+      <PrimarySearchAppBar />
     </div>
   );
 };

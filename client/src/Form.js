@@ -25,32 +25,26 @@ const useStyles = makeStyles(theme => ({
 const Form = ({ handleClose }) => {
   const classes = useStyles();
   // create state variables for each input
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
+
+  const [userName, setUserName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const handleSubmit = e => {
     e.preventDefault();
-    console.log(firstName, lastName, email, password);
+    console.log( userName, email, password);
     handleClose();
   };
 
   return (
     <form className={classes.root} onSubmit={handleSubmit}>
+    
       <TextField
-        label="First Name"
+        label="User Name"
         variant="filled"
         required
-        value={firstName}
-        onChange={e => setFirstName(e.target.value)}
-      />
-      <TextField
-        label="Last Name"
-        variant="filled"
-        required
-        value={lastName}
-        onChange={e => setLastName(e.target.value)}
+        value={userName}
+        onChange={e => setUserName(e.target.value)}
       />
       <TextField
         label="Email"
