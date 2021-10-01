@@ -1,5 +1,5 @@
 //Deepa 
-const { Schema } = require('mongoose');
+const { Schema, SchemaTypes,model } = require('mongoose');
 
 
 const bookSchema = new Schema({
@@ -18,7 +18,7 @@ const bookSchema = new Schema({
         default :'None'
     },
     //ISBN number 
-    bookId: {
+    ISBN: {
         type: String,
         required: true,
     },
@@ -26,10 +26,19 @@ const bookSchema = new Schema({
         type: Number,
 	required :true,
     },
-    location:{
-        type:Number,
-        required:true
-    }   
+    // location:{
+    //     type:Number,
+    //     required:true
+    // },
+    category: {
+        type: String,
+        enum: ['IT','Management','Science','Mathematics','Fiction','Biography','Language','Arts','Other'],
+        required: true
+    }, 
+    borrowers:[{
+        type:Schema.Types.ObjectId,
+        ref:'User'
+    }],
 }, { timestamps:true});
 
-module.exports = bookSchema;
+module.exports =model('Book',bookSchema);

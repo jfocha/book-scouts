@@ -19,7 +19,7 @@ const startServer = async () => {
   });
 
   // Start the Apollo server
-  await server.start();
+  // await server.start();
 
   // integrate our Apollo server with the Express application as middleware
   server.applyMiddleware({ app });
