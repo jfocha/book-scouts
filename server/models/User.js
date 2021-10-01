@@ -32,24 +32,11 @@ const userSchema = new Schema(
         admin:   {
             type: Boolean,
             default: false
-        },
-        // // set books checkout  to be an array of data that adheres to the bookSchema
-        // booksCheckedOut: [
-        //     {
-        //         type: Schema.Types.ObjectId,
-        //         ref:'Book'
-        //     }
-        // ],
+        }
+       
     }
-    // ,Can be implememted in Graph ql 
-    // // set this to use virtual below
-    // {
-    //     toJSON: {
-    //         virtuals: true,
-    //     },
-    // }
+    
 );
-
 // hash user password
 userSchema.pre('save', async function (next) {
     if (this.isNew || this.isModified('password')) {
@@ -64,11 +51,6 @@ userSchema.pre('save', async function (next) {
 userSchema.methods.isCorrectPassword = async function (password) {
     return bcrypt.compare(password, this.password);
 };
-
-// // when we query a user, we'll also get another field called `bookCount` with the number of saved books we have
-// userSchema.virtual('bookCount').get(function () {
-//     return this.booksCheckedOut.length;
-// });
 
 const User = model('User', userSchema);
 

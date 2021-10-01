@@ -31,8 +31,6 @@ input BookInput{
   description: String
   stockCount: Int
   category:String
-
-
 }
 
 type Query{
