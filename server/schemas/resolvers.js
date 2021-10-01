@@ -101,15 +101,17 @@ const resolvers = {
         if(!context.user.admin){
           throw new AuthenticationError("You need to be an admin to add a book");
         }
-        if(bookId.stockCount > 1)
+        console.log(bookId.stockCount);
+        bookId.stockCount --;
+        if(bookId.stockCount >= 1)
         {
-              bookId.stockCount --;
-              return "Multiple Copies- book Count decremented!";
+              const updatedBook =  await Book.findByIdAndUpdate(bookId);
         }
-        const deletedBook = await Book.findByIdAndDelete(bookId);
-        // if(deletedBook)
-        //       deletedBook.stockCount =0;
-        return deletedBook;
+        else {
+              const updatedBook = await Book.findByIdAndDelete(bookId);
+        }       
+        return updatedBook;
+        
       }
       throw new AuthenticationError("You need to be logged in!");
     },
@@ -117,12 +119,13 @@ const resolvers = {
     //return books 
     returnBook: async (parent, { bookId }, context) => {
       if (context.user) {
-        const updatedUser = await User.findOneAndUpdate(
-          { _id: context.user._id },
-          { $pull: { savedBooks: { bookId: bookId } } },
-          { new: true }
-          //decrement book count
-        );
+        
+
+        bookId.stockCount ++;
+        
+
+          //increment book count
+      
         return updatedUser;
       }
       throw new AuthenticationError("You need to be logged in!");
