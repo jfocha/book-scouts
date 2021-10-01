@@ -51,9 +51,11 @@ const resolvers = {
       return { token, user };
     },
     addBook: async (parent, args, context) => {
-      if(context.user){
-        if(!context.user.admin){
-        throw new AuthenticationError("You need to be an admin to add a book");
+      if (context.user) {
+        if (!context.user.admin) {
+          throw new AuthenticationError(
+            "You need to be an admin to add a book"
+          );
         }
       }
       try {
@@ -70,9 +72,10 @@ const resolvers = {
         if (foundBook.stockCount === 0) {
           throw new Error("Sorry! No Books left!");
         }
-        if(context.user.bookCount > 3 )
-        {
-          throw new Error("You have exceed the limit! Please return the books that you borrowed inorder to checkout");
+        if (context.user.bookCount > 3) {
+          throw new Error(
+            "You have exceed the limit! Please return the books that you borrowed inorder to checkout"
+          );
         }
         const isBorrowedByUser = await Book.findOne()
           .where("_id")
@@ -85,50 +88,56 @@ const resolvers = {
           await foundBook.save();
           return foundBook;
         }
-        throw new Error(
-          "You have already borrowed this book!"
-        );
-         
+        throw new Error("You have already borrowed this book!");
       }
       throw new AuthenticationError(
         "checkout resolver function : -You need to be logged in!"
       );
     },
 
-    // remove a book from Library  
-    removeBook: async (parent, {bookId}, context) => {
+    // remove a book from Library
+    removeBook: async (parent, { bookId }, context) => {
       if (context.user) {
-        if(!context.user.admin){
-          throw new AuthenticationError("You need to be an admin to add a book");
+        if (!context.user.admin) {
+          throw new AuthenticationError(
+            "You need to be an admin to add a book"
+          );
         }
         console.log(bookId.stockCount);
-        bookId.stockCount --;
-        if(bookId.stockCount >= 1)
-        {
-              const updatedBook =  await Book.findByIdAndUpdate(bookId);
+        //const foundBook = await Book.findById(bookId);
+        //foundBook.stockCount--;
+
+        bookId.stockCount--;
+        if (bookId.stockCount >= 1) {
+          const updatedBook = await Book.findByIdAndUpdate(bookId);
+        } else {
+          const updatedBook = await Book.findByIdAndDelete(bookId);
         }
-        else {
-              const updatedBook = await Book.findByIdAndDelete(bookId);
-        }       
         return updatedBook;
-        
       }
       throw new AuthenticationError("You need to be logged in!");
     },
 
-    //return books 
+    //return books
     returnBook: async (parent, { bookId }, context) => {
       if (context.user) {
-        
-
-        bookId.stockCount ++;
-        
-
-          //increment book count
-      
-        return updatedUser;
+        const foundBook = await Book.findById(bookId);
+        const isBorrowedByUser = await Book.findOne()
+          .where("_id")
+          .equals(bookId)
+          .where("borrowers")
+          .in(context.user._id);
+        if (isBorrowedByUser) {
+          foundBook.stockCount++;
+          foundBook.borrowers.pull(context.user._id);
+          await foundBook.save();
+          return foundBook;
+        }
+        throw new Error("You have not borrowed this book!");
       }
-      throw new AuthenticationError("You need to be logged in!");
+      throw new AuthenticationError(
+        "checkout resolver function : -You need to be logged in!"
+      );
     },
   },
   User: {
@@ -140,13 +149,12 @@ const resolvers = {
       return books;
     },
   },
-  Book:{
-
-      borrowers : async (parent) =>{
-        const borrowers = await User.find().where("_id").in(parent.borrowers)
-         return borrowers;
-      }
-  }
+  Book: {
+    borrowers: async (parent) => {
+      const borrowers = await User.find().where("_id").in(parent.borrowers);
+      return borrowers;
+    },
+  },
 };
 
 module.exports = resolvers;
