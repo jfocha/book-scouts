@@ -32,6 +32,7 @@ const Form = ({ handleClose }) => {
 
   const handleSubmit = e => {
     e.preventDefault();
+    // pass info to back end here
     console.log( userName, email, password);
     handleClose();
   };

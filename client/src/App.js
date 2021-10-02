@@ -12,8 +12,8 @@
 
 
 import { useState } from 'react';
-import ModalDialog from './ModalDialog';
-import PrimarySearchAppBar from './Navbar';
+import ModalDialog from './components/ModalDialog';
+import PrimarySearchAppBar from '././components/Navbar';
 
 const App = () => {
   // declare a new state variable for modal open
