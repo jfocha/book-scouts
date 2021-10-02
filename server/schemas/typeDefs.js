@@ -1,3 +1,5 @@
+// Code by Sindhu Pillai 
+
 // import the gql tagged template function
 const { gql } = require('apollo-server-express');
 
@@ -41,3 +43,5 @@ user: User
 
 // export the typeDefs
 module.exports = typeDefs;
+
+// End of Code

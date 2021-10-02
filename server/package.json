@@ -18,9 +18,11 @@
     "faker": "^4.1.0",
     "graphql": "^15.6.0",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.9.9"
+    "mongoose": "^5.13.9"
   },
   "devDependencies": {
+    "lodash": "^4.17.21",
+    "mongodb": "^3.6.11",
     "nodemon": "^2.0.3"
   }
 }

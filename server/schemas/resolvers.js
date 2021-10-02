@@ -1,3 +1,5 @@
+// Code by Sindhu Pillai and Deepa Krishnan
+
 const { AuthenticationError } = require('apollo-server-express');
 const { User } = require('../models');
 const { signToken } = require('../utils/auth');
@@ -8,8 +10,7 @@ const resolvers = {
       if (context.user) {
         const userData = await User.findOne({ _id: context.user._id })
           .select('-__v -password');
-          
-
+         
         return userData;
       }
 
@@ -23,7 +24,9 @@ const resolvers = {
     user: async (parent, { username }) => {
       return User.findOne({ username })
         .select('-__v -password');
+       
     }
+   
   },
 
   Mutation: {
@@ -48,8 +51,36 @@ const resolvers = {
 
       const token = signToken(user);
       return { token, user };
-    }
-  } 
-};
+    },
+     // check out a book 
+  checkoutBook(parent,{bookId},context){
 
+    if (context.user) {
+    const checkoutBooks = await User.findOneAndUpdate(  
+       { _id: context.user._id },
+       // check for book id 
+       // decrement the book count 
+       { new: true, runValidators: true }
+      );
+      return checkoutBooks;
+  }
+  throw new AuthenticationError("checkout resolver function : -You need to be logged in!");    
+  },
+  removeBook: async (parent, { bookId }, context) => {
+    if (context.user) {
+        const updatedUser = await User.findOneAndUpdate(
+            { _id: context.user._id },
+            { $pull: { savedBooks: {bookId: bookId } } },
+            { new: true }
+        );
+        return updatedUser;
+          
+    }
+  
+    throw new AuthenticationError("You need to be logged in!");
+  },    
+}
+}
 module.exports = resolvers;
+
+// End of Code by Sindhu and Deepa
