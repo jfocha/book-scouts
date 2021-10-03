@@ -118,7 +118,8 @@ This app combine all four technologies of the MERN stack (MongoDB, Express.js, R
   
 
 ##  Process
-To Accomplish our goal, We: 
+To Accomplish our goal, We:
+
 	- Integrated the Apollo Server GraphQL library to handle data requests to our API.
 	- Built both query type definitions and resolvers for retrieving data from our MongoDB database.
 	- Used the GraphQL Playground interface to thoroughly test our GraphQL queries.
