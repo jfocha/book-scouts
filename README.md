@@ -118,7 +118,16 @@ This app combine all four technologies of the MERN stack (MongoDB, Express.js, R
   
 
 ##  Process
- 
+To Accomplish our goal, We: 
+	- Integrated the Apollo Server GraphQL library to handle data requests to our API.
+	- Built both query type definitions and resolvers for retrieving data from our MongoDB database.
+	- Used the GraphQL Playground interface to thoroughly test our GraphQL queries.
+	- Ran a back-end server to host our database and API, and we need a separate server for React development
+	- The backend server uses Mongoose for all of its MongoDB data handling, but instead of connecting to the database right from server.js, it's actually 		handling the connection in the config/connection.js file. From there, the mongoose.connection object is exported. 
+	In server.js, we import thatconnection. Then when we run our server, we listen for that connection to be made with db.open(). 
+	Upon a 	successfulconnection, we start the server.
+	- handled user password hashing using the bcrypt library.
+	- used The library Faker.js is used here to help generate dummy data for us to use. 
 
 
 ## MockUp
