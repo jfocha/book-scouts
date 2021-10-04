@@ -6,14 +6,14 @@ const { SchemaMetaFieldDef } = require('graphql');
 
 const userSchema = new Schema(
     {
-        firstName :{
-            type:String,
+        // firstName :{
+        //     type:String,
             
-        },
-        lastName :{
-            type:String,
+        // },
+        // lastName :{
+        //     type:String,
             
-        }, 
+        // }, 
         username: {
             type: String,
             required: true,
