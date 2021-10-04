@@ -29,7 +29,7 @@ const bookSchema = new Schema({
     category: {
         type: String,
         enum: ['IT','Management','Science','Mathematics','Fiction','Biography','Language','Arts','Other'],
-        required: true
+        // required: true
     }, 
     borrowers:[{
         type:Schema.Types.ObjectId,
@@ -37,4 +37,4 @@ const bookSchema = new Schema({
     }],
 }, { timestamps:true});
 
-module.exports =model('Book',bookSchema);
+module.exports = model('Book', bookSchema);
