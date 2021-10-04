@@ -1,4 +1,5 @@
 # book-scouts
+##  Description
 This is an online library management app where users can rent books for a specific time .
 This will have 2 interfaces.
 	* User Inerface
@@ -35,7 +36,7 @@ This app combine all four technologies of the MERN stack (MongoDB, Express.js, R
    [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)<br />
 
 
-##  Description
+
 
 ## Table of Contents 
   * [Description](#description)
