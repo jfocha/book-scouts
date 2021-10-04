@@ -1,6 +1,6 @@
 import gql from 'graphql-tag';
 
-export const LOGIN_USER =gql`
+export const LOGIN_USER = gql `
 mutation login($email:String!,$password:String!){
     login(email:$email,password:$password){
         token
@@ -11,7 +11,7 @@ mutation login($email:String!,$password:String!){
     }
 }`;
 // First last name to be included ??
-export const ADD_USER= gql`
+export const ADD_USER = gql `
 mutation addUser($username:String!, $email:String!, $password:String!){
     addUser(username:$username,email:$email,password:$password){
         token
@@ -24,7 +24,7 @@ mutation addUser($username:String!, $email:String!, $password:String!){
     }
 }`;
 
-export const SAVE_BOOK = gql`
+export const SAVE_BOOK = gql `
   mutation saveBook($input: BookInput!) {
     saveBook(input: $input) {
       _id
@@ -43,7 +43,7 @@ export const SAVE_BOOK = gql`
 `;
 
 
-export const REMOVE_BOOK = gql`
+export const REMOVE_BOOK = gql `
   mutation removeBook($bookId: String!) {
     removeBook(bookId: $bookId) {
       _id
@@ -63,7 +63,7 @@ export const REMOVE_BOOK = gql`
  
 `;
 
-export const ADD_BOOK =gql` 
+export const ADD_BOOK = gql ` 
 mutation addBook($addBookInput: BookInput!) {
     addBook(input: $addBookInput) {
       ISBN
@@ -76,7 +76,7 @@ mutation addBook($addBookInput: BookInput!) {
   }
 `;
 
-export const CHECKOUT_BOOK =gql`
+export const CHECKOUT_BOOK = gql `
 mutation checkoutBook($checkoutBookBookId: String!) {
     checkoutBook(bookId: $checkoutBookBookId) {
       _id
@@ -85,4 +85,5 @@ mutation checkoutBook($checkoutBookBookId: String!) {
       author
       stockCount
     }
-  }`;
+  }
+`;

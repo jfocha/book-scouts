@@ -13,8 +13,7 @@ export const QUERY_ME = gql`
         author
         title
         description
-        image
-        link
+        category
     }
   }
 }`;
@@ -24,7 +23,6 @@ export const QUERY_USERS =gql`
 {
     users{
       _id
-      username 
       booksCheckedOut{
         title
         _id
@@ -38,6 +36,7 @@ export const QUERY_USERS =gql`
     }
   }
 `;
+
 // Query all Books 
 export const QUERY_BOOK = gql`
 {
