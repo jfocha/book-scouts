@@ -86,3 +86,25 @@ mutation checkoutBook($checkoutBookBookId: String!) {
       stockCount
     }
   }`;
+ 
+  export const RETURN_BOOK =gql`
+  mutation returBook($returnBookBookId: String!) {
+    returnBook(bookId: $returnBookBookId) {
+      _id
+      ISBN
+      title
+      author
+      stockCount
+    }
+  }`;
+
+  export const REMOVE_BOOK =gql`
+  mutation removeBook($removeBookBookId: String!) {
+    removeBook(bookId: $removeBookBookId) {
+      _id
+      ISBN
+      title
+      author
+      stockCount
+    }
+  }`;
