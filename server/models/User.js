@@ -1,11 +1,19 @@
+// Deepa 
 const { Schema, model } = require('mongoose');
 const bcrypt = require('bcrypt');
+const { SchemaMetaFieldDef } = require('graphql');
 
-// import schema from Book.js
-const bookSchema = require('./Book');
 
 const userSchema = new Schema(
     {
+        firstName :{
+            type:String,
+            
+        },
+        lastName :{
+            type:String,
+            
+        }, 
         username: {
             type: String,
             required: true,
@@ -21,17 +29,14 @@ const userSchema = new Schema(
             type: String,
             required: true,
         },
-        // set books checkout  to be an array of data that adheres to the bookSchema
-        booksCheckedOut: [bookSchema],
-    },
-    // set this to use virtual below
-    {
-        toJSON: {
-            virtuals: true,
-        },
+        admin:   {
+            type: Boolean,
+            default: false
+        }
+       
     }
+    
 );
-
 // hash user password
 userSchema.pre('save', async function (next) {
     if (this.isNew || this.isModified('password')) {
@@ -46,11 +51,6 @@ userSchema.pre('save', async function (next) {
 userSchema.methods.isCorrectPassword = async function (password) {
     return bcrypt.compare(password, this.password);
 };
-
-// when we query a user, we'll also get another field called `bookCount` with the number of saved books we have
-userSchema.virtual('bookCount').get(function () {
-    return this.booksCheckedOut.length;
-});
 
 const User = model('User', userSchema);
 

@@ -10,19 +10,32 @@
 //   cache: new InMemoryCache(),
 // });
 
-function App() {
+
+import { useState } from 'react';
+import ModalDialog from './ModalDialog';
+import PrimarySearchAppBar from './Navbar';
+
+const App = () => {
+  // declare a new state variable for modal open
+  const [open, setOpen] = useState(false);
+
+  // function to handle modal open
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  // function to handle modal close
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   return (
-    <div></div>
-    // <ApolloProvider client={client}>
-    //   <div className="flex-column justify-flex-start min-100-vh">
-    //     <Header />
-    //     <div className="container">
-    //       <Home />
-    //     </div>
-    //     <Footer />
-    //   </div>
-    // </ApolloProvider>
+    <div className="App">
+      <ModalDialog open={open} handleClose={handleClose} />
+      <PrimarySearchAppBar />
+    </div>
   );
-}
+};
 
 export default App;
+
