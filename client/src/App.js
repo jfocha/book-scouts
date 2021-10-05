@@ -13,7 +13,9 @@
 
 import { useState } from 'react';
 import ModalDialog from './components/ModalDialog';
-import PrimarySearchAppBar from '././components/Navbar';
+import PrimarySearchAppBar from '././components/Navbar'
+import EnhancedTable from './components/BookTable';
+import SimplePaper from './components/SearchedBooks';
 
 const App = () => {
   // declare a new state variable for modal open
@@ -31,9 +33,14 @@ const App = () => {
 
   return (
     <div className="App">
+      <div>
       <ModalDialog open={open} handleClose={handleClose} />
       <PrimarySearchAppBar />
+      </div>
+      <div><SimplePaper /></div>
+      {/* <div><EnhancedTable /></div> */}
     </div>
+
   );
 };
 
