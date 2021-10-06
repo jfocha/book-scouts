@@ -12,6 +12,21 @@
    await User.deleteMany({});
    await Book.deleteMany({});
 
+   // create book data
+   const bookData = [];
+
+   for (let i = 0; i < 20; i++) {
+     const book = {
+       title: faker.company.catchPhrase(),
+       author: faker.name.findName(),
+       description: faker.lorem.sentence(),
+       ISBN: faker.random.alphaNumeric(),
+       stockCount: faker.random.number({min:1, max:10})
+       //  category: faker.commerce.department()
+     }
+     bookData.push(book);
+   }
+
    // create user data
    const userData = [];
    for (let i = 0; i < 20; i += 1) {
@@ -22,20 +37,6 @@
      }
      userData.push(user);
    }
-   // create book data
-   const bookData = [];
-
-   for (let i = 0; i < 20; i++) {
-     const book = {
-       title: faker.company.catchPhrase(),
-       author: faker.name.findName(),
-       description: faker.lorem.sentence(),
-       ISBN: faker.random.alphaNumeric(),
-       stockCount: faker.random.number(),
-       //  category: faker.commerce.department()
-     }
-     bookData.push(book);
-   }
 
    await Book.insertMany(bookData);
    await User.insertMany(userData);
@@ -43,16 +44,4 @@
    process.exit(0);
  });
 
-
- // -----------------------------------------------------------
-
- // for (let i = 0; i < 20; i++) {
- //     const title = faker.company.catchPhrase();
- //     const author = faker.name.findName();
- //     const description = faker.lorem.sentence()
- //     const ISBN = faker.datatype.string();
- //     const stockCount = faker.datatype.number();
- //     const category = faker.commerce.department();
-
- //     bookData.push({ title, author, description, ISBN,stockCount, category  });
- // End of code by Sindhu
+ //end of code by Sindhu
