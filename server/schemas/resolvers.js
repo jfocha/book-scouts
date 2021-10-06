@@ -50,29 +50,34 @@ const resolvers = {
       const token = signToken(user);
       return { token, user };
     },
+    // Add Book to Library - Book details passed in args
     addBook: async (parent, args, context) => {
-      if (context.user) {
+      
+      if (context.user) 
+      {
         if (!context.user.admin) {
           throw new AuthenticationError(
             "You need to be an admin to add a book"
           );
         }
-      }
-      try {
-        const newBook = await Book.create(args.input);
-        return newBook;
-      } catch (err) {
-        throw new Error(err);
+          
+        try {
+            const newBook = await Book.create(args.input);
+            return newBook;
+          } catch (err) {
+            throw new Error(err);
+        }
+        throw new Error("You need to be logged in !!")
       }
     },
-    // check out a book
+    // check out a book ,by bookId
     checkoutBook: async (parent, { bookId }, context) => {
       if (context.user) {
         const foundBook = await Book.findById(bookId);
         if (foundBook.stockCount === 0) {
           throw new Error("Sorry! No Books left!");
         }
-        if (context.user.bookCount > 3) {
+        if (context.user._id.bookCount > 3) {
           throw new Error(
             "You have exceed the limit! Please return the books that you borrowed inorder to checkout"
           );
@@ -95,30 +100,32 @@ const resolvers = {
       );
     },
 
-    // remove a book from Library
+    // remove a book from Library by bookId
     removeBook: async (parent, { bookId }, context) => {
-      if (context.user) {
+      if (context.user) 
+      {
         if (!context.user.admin) {
           throw new AuthenticationError(
             "You need to be an admin to add a book"
           );
         }
-        console.log(bookId.stockCount);
-        //const foundBook = await Book.findById(bookId);
-        //foundBook.stockCount--;
-
-        bookId.stockCount--;
-        if (bookId.stockCount >= 1) {
-          const updatedBook = await Book.findByIdAndUpdate(bookId);
-        } else {
-          const updatedBook = await Book.findByIdAndDelete(bookId);
-        }
-        return updatedBook;
-      }
+      const foundBook = await Book.findById(bookId);
+      if(foundBook)
+          {
+              const updatedBook = await Book.findByIdAndUpdate(bookId,{stockCount:parseInt(foundBook.stockCount-1)});
+              if(updatedBook.stockCount<=0){
+                    updatedBook.delete();
+              }
+          }
+          else {
+          throw new Error("Book Not found!! ");  }
+      }      
+      else{  
       throw new AuthenticationError("You need to be logged in!");
+      }
     },
 
-    //return books
+    //return books by book Id
     returnBook: async (parent, { bookId }, context) => {
       if (context.user) {
         const foundBook = await Book.findById(bookId);
@@ -138,7 +145,7 @@ const resolvers = {
       throw new AuthenticationError(
         "checkout resolver function : -You need to be logged in!"
       );
-    },
+    }
   },
   User: {
     bookCount: (parent) => {

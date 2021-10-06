@@ -13,6 +13,7 @@ type Book {
   stockCount: Int
   category:String
   borrowers:[User]
+  
 
 }
 
@@ -20,7 +21,7 @@ type User {
   _id: ID
   username: String!
   email: String!
-  admin :User
+  admin: User
   bookCount: Int
   booksCheckedOut: [Book]
 }
@@ -31,6 +32,7 @@ input BookInput{
   description: String
   stockCount: Int
   category:String
+  
 }
 
 type Query{
@@ -46,7 +48,7 @@ type Mutation {
   addUser(username: String!, email: String!, password: String!): Auth
   removeBook(bookId:String!):Book
   checkoutBook(bookId:String!):Book
-  returnBook(bookId:String!):User
+  returnBook(bookId:String!):Book
   addBook(input:BookInput!):Book
 }
 

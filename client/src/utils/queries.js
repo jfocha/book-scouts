@@ -45,6 +45,8 @@ export const QUERY_BOOK = gql`
       ISBN
       _id
       title
+      author
+      description
       borrowers{
         _id
         username
@@ -54,8 +56,8 @@ export const QUERY_BOOK = gql`
 `;
 
   // Query by userName 
-export const QUERY_BYUSERNAME =gql`
+// export const QUERY_BYUSERNAME =gql`
     
      
 
-`;
+// `;
