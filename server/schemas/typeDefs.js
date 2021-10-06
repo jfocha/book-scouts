@@ -24,6 +24,7 @@ type User {
   admin :User
   bookCount: Int
   booksCheckedOut: [Book]
+  paid:Boolean
 }
 input BookInput{
   ISBN: String
@@ -42,6 +43,14 @@ type Query{
   books:[Book]
   users:[User]
 }
+type Session{
+  session :ID
+}
+
+type Auth {
+token: ID!
+user: User
+}
 
 type Mutation {
   login(email: String!, password: String!): Auth
@@ -50,12 +59,10 @@ type Mutation {
   checkoutBook(bookId:String!):Book
   returnBook(bookId:String!):Book
   addBook(input:BookInput!):Book
+  payFine(bookId:String!):Session 
 }
 
-type Auth {
-token: ID!
-user: User
-}
+
 `;
 
 // export the typeDefs

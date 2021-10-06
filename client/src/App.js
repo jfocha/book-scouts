@@ -33,6 +33,7 @@ const App = () => {
     <div className="App">
       <ModalDialog open={open} handleClose={handleClose} />
       <PrimarySearchAppBar />
+      
     </div>
   );
 };

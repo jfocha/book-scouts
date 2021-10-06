@@ -8,25 +8,8 @@ Users registered for this application can :
 	- filter them based on category, author, publcations etc..
 	- Pay & Rent them for a specific duration
 	- Like/Review them (Future Enchancement)
-Admin of this application can:
-  - List/manage books
-  - Track rented books and thier availability
-	- Send notifications via email to users once lease expires
-This app combine all four technologies of the MERN stack (MongoDB, Express.js, React, and Node.js).
-
- <p align="left">
-    <img src="https://img.shields.io/github/repo-size/deeparkrish/book-search-engine" />
-    <img src="https://img.shields.io/github/issues/deeparkrish/book-search-engine" />
-    <img src="https://img.shields.io/github/last-commit/deeparkrish/book-search-engine" >       
-  </p>
-  <p align="left"> 
-     <img src="https://img.shields.io/github/languages/top/deeparkrish/book-search-engine"/>
-    <img src="https://img.shields.io/badge/React.js-blue"  />
-    <img src="https://img.shields.io/badge/-Node.js-green" />
-    <img src="https://img.shields.io/badge/-Express-red" >
-    <img src="https://img.shields.io/badge/-JWT-orange"/>
-    <img src="https://img.shields.io/badge/-Concurrently-lightgreen"/>
-    <img src="https://img.shields.io/badge/-Mongoose -pink"/>
+  
+  
     <img src="https://img.shields.io/badge/-ApolloServer-yellow"/>
      <img src="https://img.shields.io/badge/-jwtdecode-lightblue"/>
      <img src="https://img.shields.io/badge/-Graphql-purple"/>
