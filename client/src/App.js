@@ -9,6 +9,7 @@ import EnhancedTable from './components/BookTable';
 import SimplePaper from './components/SearchedBooks';
 import Cart from './components/Checkout';
 import { setContext } from '@apollo/client/link/context';
+import LandingPage from './components/LandingPage';
 
 const httpLink = createHttpLink({
   uri: '/graphql',
@@ -46,7 +47,7 @@ const App = () => {
 
   // function to handle modal open
   const handleOpen = () => {
-    setOpen(true);
+    setOpen(false);
   };
 
   // function to handle modal close
@@ -57,13 +58,17 @@ const App = () => {
   return (
     <ApolloProvider client={client}>
     <div className="App">
+      
       <div>
+        
       <ModalDialog open={open} handleClose={handleClose} />
       <PrimarySearchAppBar />
       </div>
+      {/* <LandingPage /> */}
       <div><SimplePaper /></div>
-      <div><EnhancedTable /></div>
+      {/* <div><EnhancedTable /></div> */}
       {/* <div><Cart /></div> */}
+
     </div>
     </ApolloProvider>
   );
