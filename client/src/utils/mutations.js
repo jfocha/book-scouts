@@ -98,13 +98,13 @@ mutation checkoutBook($checkoutBookBookId: String!) {
     }
   }`;
 
-  export const REMOVE_BOOK =gql`
-  mutation removeBook($removeBookBookId: String!) {
-    removeBook(bookId: $removeBookBookId) {
-      _id
-      ISBN
-      title
-      author
-      stockCount
-    }
-  }`;
+  // export const REMOVE_BOOK =gql`
+  // mutation removeBook($removeBookBookId: String!) {
+  //   removeBook(bookId: $removeBookBookId) {
+  //     _id
+  //     ISBN
+  //     title
+  //     author
+  //     stockCount
+  //   }
+  // }`;

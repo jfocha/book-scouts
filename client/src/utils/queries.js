@@ -54,8 +54,8 @@ export const QUERY_BOOK = gql`
 `;
 
   // Query by userName 
-export const QUERY_BYUSERNAME =gql`
+// export const QUERY_BYUSERNAME =gql`
     
      
 
-`;
+// `;
