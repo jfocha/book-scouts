@@ -16,7 +16,7 @@ db.once('open', async () => {
       author: faker.name.findName(),
       description: faker.lorem.sentence(),
       ISBN: faker.random.alphaNumeric(),
-      stockCount: faker.random.number(),
+      stockCount: faker.random.number({min:1, max:10})
       //category: faker.commerce.department()
     }
     bookData.push(book);
