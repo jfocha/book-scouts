@@ -23,7 +23,7 @@ import FilterListIcon from '@mui/icons-material/FilterList';
 import { visuallyHidden } from '@mui/utils';
 
 import { useQuery } from '@apollo/client';
-import { QUERY_ME } from '../../utils/queries';
+import { QUERY_ME, QUERY_BOOK } from '../../utils/queries';
 
 function createData(name, author, description) {
   return {
@@ -236,8 +236,13 @@ export default function EnhancedTable() {
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
-  const { loading, data } = useQuery(QUERY_ME);
-  const booksCheckedOut = data?.booksCheckedOut || [];
+
+
+  const { loading, data } = useQuery(QUERY_BOOK);
+  if (loading) {
+    return <h1>Loading...</h1>
+  }
+  const booksCheckedOut = data?.books || [];
   console.log(booksCheckedOut);
 
   const handleRequestSort = (event, property) => {

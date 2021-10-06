@@ -21,7 +21,7 @@ type User {
   _id: ID
   username: String!
   email: String!
-  admin :User
+  admin: User
   bookCount: Int
   booksCheckedOut: [Book]
 }

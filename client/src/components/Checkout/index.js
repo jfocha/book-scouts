@@ -2,7 +2,7 @@ import React from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import CheckoutForm from "./CheckoutForm";
-import "./pay.css";
+// import "./pay.css";
 
 
 // Make sure to call loadStripe outside of a component’s render to avoid
