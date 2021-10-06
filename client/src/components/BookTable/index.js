@@ -22,30 +22,36 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import { visuallyHidden } from '@mui/utils';
 
-function createData(name, calories, fat, carbs, protein) {
+import { useQuery } from '@apollo/client';
+import { QUERY_ME } from '../../utils/queries';
+
+function createData(name, author, description) {
   return {
     name,
-    calories,
-    fat,
-    carbs,
-    protein,
+    author,
+    description,
+    // carbs,
+    // protein,
   };
 }
 
+
+
 const rows = [
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Donut', 452, 25.0, 51, 4.9),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
-  createData('Honeycomb', 408, 3.2, 87, 6.5),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Jelly Bean', 375, 0.0, 94, 0.0),
-  createData('KitKat', 518, 26.0, 65, 7.0),
-  createData('Lollipop', 392, 0.2, 98, 0.0),
-  createData('Marshmallow', 318, 0, 81, 2.0),
-  createData('Nougat', 360, 19.0, 9, 37.0),
-  createData('Oreo', 437, 18.0, 63, 4.0),
+  // createData(data.title, data.author, data.description),
+  createData('In Search of Lost Time', 'Marcel Proust', 'Swann\'s Way, the first part of A la recherche de temps perdu, Marcel Proust\'s seven-part cycle, was published in 1913. In it, Proust introduces the themes that run through the entire work. The narr...'),
+  createData('Ulysses', 'James Joyce', 'Ulysses chronicles the passage of Leopold Bloom through Dublin during an ordinary day, June 16, 1904. The title parallels and alludes to Odysseus (Latinised into Ulysses), the hero of Homer\'s Odyss...'),
+  createData('Don Quixote', 'Miguel de Cervantes', 'Alonso Quixano, a retired country gentleman in his fifties, lives in an unnamed section of La Mancha with his niece and a housekeeper. He has become obsessed with books of chivalry, and believes th...'),
+  createData('One Hundred Years of Solitude', 'Gabriel Garcia Marquez', 'One of the 20th century\'s enduring works, One Hundred Years of Solitude is a widely beloved and acclaimed novel known throughout the world, and the ultimate achievement in a Nobel Prize–winning car...'),
+  createData('The Great Gatsby', 'F. Scott Fitzgerald', 'The novel chronicles an era that Fitzgerald himself dubbed the "Jazz Age". Following the shock and chaos of World War I, American society enjoyed unprecedented levels of prosperity during the "roar...'),
+  createData('Moby Dick', 'Herman Melville', 'First published in 1851, Melville\'s masterpiece is, in Elizabeth Hardwick\'s words, "the greatest novel in American literature." The saga of Captain Ahab and his monomaniacal pursuit of the white wh...'),
+  createData('War and Peace', 'Leo Tolstoy', 'Epic in scale, War and Peace delineates in graphic detail events leading up to Napoleon\'s invasion of Russia, and the impact of the Napoleonic era on Tsarist society, as seen through the eyes of fi...'),
+  createData('Hamlet', 'William Shakespeare', 'The Tragedy of Hamlet, Prince of Denmark, or more simply Hamlet, is a tragedy by William Shakespeare, believed to have been written between 1599 and 1601. The play, set in Denmark, recounts how Pri...'),
+  createData('The Odyssey', 'Homer', 'The Odyssey is one of two major ancient Greek epic poems attributed to Homer. It is, in part, a sequel to the Iliad, the other work traditionally ascribed to Homer. The poem is fundamental to the m...'),
+  createData('Madame Bovary', 'Gustave Flaubert', 'For daring to peer into the heart of an adulteress and enumerate its contents with profound dispassion, the author of Madame Bovary was tried for "offenses against morality and religion." What shoc...'),
+  createData('The Divine Comedy', 'Dante Alighieri', 'Belonging in the immortal company of the great works of literature, Dante Alighieri\'s poetic masterpiece, The Divine Comedy, is a moving human drama, an unforgettable visionary journey through the ...'),
+  createData('Lolita', 'Vladimir Nabokov', 'The book is internationally famous for its innovative style and infamous for its controversial subject: the protagonist and unreliable narrator, middle aged Humbert Humbert, becomes obsessed and se...'),
+  createData('The Brothers Karamazov', 'Fyodor Dostoyevsky', 'Dostoevsky\'s last and greatest novel, The Karamazov Brothers, is both a brilliantly told crime story and a passionate philosophical debate. The dissolute landowner Fyodor Pavlovich Karamazov is mur...'),
 ];
 
 function descendingComparator(a, b, orderBy) {
@@ -83,32 +89,32 @@ const headCells = [
     id: 'name',
     numeric: false,
     disablePadding: true,
-    label: 'Dessert (100g serving)',
+    label: 'Title',
   },
   {
-    id: 'calories',
-    numeric: true,
+    id: 'author',
+    numeric: false,
     disablePadding: false,
-    label: 'Calories',
+    label: 'Author',
   },
   {
-    id: 'fat',
-    numeric: true,
+    id: 'description',
+    numeric: false,
     disablePadding: false,
-    label: 'Fat (g)',
+    label: 'Description',
   },
-  {
-    id: 'carbs',
-    numeric: true,
-    disablePadding: false,
-    label: 'Carbs (g)',
-  },
-  {
-    id: 'protein',
-    numeric: true,
-    disablePadding: false,
-    label: 'Protein (g)',
-  },
+  // {
+  //   id: 'carbs',
+  //   numeric: true,
+  //   disablePadding: false,
+  //   label: 'Carbs (g)',
+  // },
+  // {
+  //   id: 'protein',
+  //   numeric: true,
+  //   disablePadding: false,
+  //   label: 'Protein (g)',
+  // },
 ];
 
 function EnhancedTableHead(props) {
@@ -224,11 +230,15 @@ EnhancedTableToolbar.propTypes = {
 
 export default function EnhancedTable() {
   const [order, setOrder] = React.useState('asc');
-  const [orderBy, setOrderBy] = React.useState('calories');
+  const [orderBy, setOrderBy] = React.useState('author');
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+
+  const { loading, data } = useQuery(QUERY_ME);
+  const booksCheckedOut = data?.booksCheckedOut || [];
+  console.log(booksCheckedOut);
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
@@ -338,10 +348,10 @@ export default function EnhancedTable() {
                       >
                         {row.name}
                       </TableCell>
-                      <TableCell align="right">{row.calories}</TableCell>
-                      <TableCell align="right">{row.fat}</TableCell>
-                      <TableCell align="right">{row.carbs}</TableCell>
-                      <TableCell align="right">{row.protein}</TableCell>
+                      <TableCell align="right">{row.author}</TableCell>
+                      <TableCell align="right">{row.description}</TableCell>
+                      {/* <TableCell align="right">{row.carbs}</TableCell>
+                      <TableCell align="right">{row.protein}</TableCell> */}
                     </TableRow>
                   );
                 })}
