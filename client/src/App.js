@@ -66,7 +66,7 @@ const App = () => {
       </div>
       {/* <LandingPage /> */}
       <div><SimplePaper /></div>
-      {/* <div><EnhancedTable /></div> */}
+      <div><EnhancedTable /></div>
       {/* <div><Cart /></div> */}
 
     </div>

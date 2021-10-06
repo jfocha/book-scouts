@@ -245,8 +245,22 @@ export default function EnhancedTable() {
   const booksCheckedOut = data?.books || [];
   console.log(booksCheckedOut);
 
-  const rows = [
-  createData(booksCheckedOut.title, booksCheckedOut.author, booksCheckedOut.description)];
+  const rows = booksCheckedOut.map(bookrecord => {
+    return bookrecord.title;
+
+  });
+  const author = booksCheckedOut.map(bookrecord => {
+   return bookrecord.author;
+
+ });
+ const description = booksCheckedOut.map(bookrecord => {
+   return bookrecord.description;
+
+ });
+
+ // const rows = [
+ // createData(booksCheckedOut.title, booksCheckedOut.author, booksCheckedOut.description)];
+ console.log(rows);
 
 
   const handleRequestSort = (event, property) => {
@@ -355,10 +369,10 @@ export default function EnhancedTable() {
                         scope="row"
                         padding="none"
                       >
-                        {row.name}
+                        {row}
                       </TableCell>
-                      <TableCell align="right">{row.author}</TableCell>
-                      <TableCell align="right">{row.description}</TableCell>
+                      <TableCell align="right">{author}</TableCell>
+                      <TableCell align="right">{description}</TableCell>
                       {/* <TableCell align="right">{row.carbs}</TableCell>
                       <TableCell align="right">{row.protein}</TableCell> */}
                     </TableRow>
