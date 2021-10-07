@@ -9,6 +9,7 @@ import ModalDialog from '../ModalDialog';
 
 
 const LandingPage = () => {
+
   // declare a new state variable for modal open
   const [open, setOpen] = useState(false);
 

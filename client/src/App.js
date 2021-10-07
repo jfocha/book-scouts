@@ -10,6 +10,7 @@ import SimplePaper from './components/SearchedBooks';
 import Cart from './components/Checkout';
 import { setContext } from '@apollo/client/link/context';
 import LandingPage from './components/LandingPage';
+import Gallery from './components/Gallery';
 
 const httpLink = createHttpLink({
   uri: '/graphql',
@@ -42,34 +43,39 @@ const client = new ApolloClient({
 });
 
 const App = () => {
-  // // declare a new state variable for modal open
-  // const [open, setOpen] = useState(false);
+  const [categories] = useState([
+    { name: 'Book Scouts', description: <LandingPage /> },
+    { name: 'Search Books', description: <SimplePaper /> },
+    {
+      name: 'My Account',
+      description: <EnhancedTable />,
+    },
+    { name: 'Pay Page', description: <Cart /> },
 
-  // // function to handle modal open
-  // const handleOpen = () => {
-  //   setOpen(true);
-  // };
+  ]);
 
-  // // function to handle modal close
-  // const handleClose = () => {
-  //   setOpen(false);
-  // };
+  const [currentCategory, setCurrentCategory] = useState(categories[0]);
 
   return (
     <ApolloProvider client={client}>
-    <div className="App">
-      
-      <div>
-        
-      
-      <PrimarySearchAppBar />
-      </div>
-      <LandingPage />
-      {/* <div><SimplePaper /></div> */}
-      {/* <div><EnhancedTable /></div> */}
-      {/* <div><Cart /></div> */}
+      <div className="App">
 
-    </div>
+        <header>
+          <PrimarySearchAppBar
+            component={'span'}
+            categories={categories}
+            setCurrentCategory={setCurrentCategory}
+            currentCategory={currentCategory}
+          ></PrimarySearchAppBar>
+        </header>
+        <main>
+          <Gallery currentCategory={currentCategory}></Gallery>
+        </main>
+        {/* <div><SimplePaper /></div> */}
+        {/* <div><EnhancedTable /></div> */}
+        {/* <div><Cart /></div> */}
+
+      </div>
     </ApolloProvider>
   );
 };

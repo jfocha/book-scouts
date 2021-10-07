@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useEffect } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -11,7 +12,17 @@ import FormGroup from '@mui/material/FormGroup';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 
-export default function MenuAppBar() {
+export default function MenuAppBar(props) {
+  const {
+    categories = [],
+    setCurrentCategory,
+    currentCategory,
+  } = props;
+
+  useEffect(() => {
+    document.title = currentCategory.name;
+  }, [currentCategory]);
+
   const [auth, setAuth] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -84,8 +95,22 @@ export default function MenuAppBar() {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
               >
-                <MenuItem onClick={handleClose}>Profile</MenuItem>
-                <MenuItem onClick={handleClose}>My account</MenuItem>
+                {categories.map((category, i) => (
+                  <span key={i}>
+                    <MenuItem onClick={() => {
+                      setCurrentCategory(categories[1]);
+                      handleClose();
+                    }}>
+                      {categories[1].name}
+                    </MenuItem>
+                    <MenuItem onClick={() => {
+                      setCurrentCategory(categories[2]);
+                      handleClose();
+                    }}>
+                      {categories[2].name}
+                    </MenuItem>
+                  </span>
+                ))}
               </Menu>
             </div>
           )}

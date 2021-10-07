@@ -39,40 +39,52 @@ export default function SimplePaper() {
     console.log("searchedBooks " + getAllBooks);
 
     const books = getAllBooks.map(book => {
-        return book.title;
+        return book;
     })
-    
-    const booksId = getAllBooks.map(book => {
-        return book._id;
-    })
-    
+
+    // const booksId = getAllBooks.map(book => {
+    //     return book._id;
+    // })
+
+    // const style = {
+    //     flexDirection: 'column',
+    //   } as const;
+
 
     console.log("Books " + books);
 
     return (
-        <div>
+        <div style={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            flexDirection: 'row'
+        }}>
             {books.map((book, i) => (
                 <Box
+                    key={i}
                     sx={{
+
                         display: 'flex',
                         flexWrap: 'wrap',
+
                         '& > :not(style)': {
                             m: 1,
                             width: 300,
                             height: 320,
                             transform: 'translateZ(0px)',
-                            // flexGrow: 1
+
                         },
+
                     }}
                 >
                     <Paper elevation={5}>
                         {/* <img src="" /> */}
 
-                        <div>{books[i]}</div>
+                        <div>{books[i].title}</div>
 
 
-                        <div>Author</div>
-                        <div>Description</div>
+                        <div>by {books[i].author}</div>
+                        {/* <div>{books[i].description}</div> */}
                         {/* <SpeedDial
                     ariaLabel="SpeedDial basic example"
                     sx={{ position: 'absolute', bottom: 16, right: 16 }}
@@ -87,8 +99,8 @@ export default function SimplePaper() {
                     ))}
                 </SpeedDial> */}
                         <Stack spacing={2} direction="row">
-                            
-                            <Button variant="outlined" onClick={() => checkoutBookHandler(booksId[i])}>Checkout</Button>
+
+                            <Button variant="outlined" onClick={() => checkoutBookHandler(books[i].booksId)}>Checkout</Button>
                         </Stack>
 
                     </Paper>
