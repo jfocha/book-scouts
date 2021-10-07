@@ -10,7 +10,7 @@ Users registered for this application can :
 	- Pay & Rent them for a specific duration
 	- Like/Review them (Future Enchancement)
 Admin of this application can:
-  	- List/manage books
+  - List/manage books
   	- Track rented books and thier availability
 	- Send notifications via email to users once lease expires <br>	
 This app combine all four technologies of the MERN stack (MongoDB, Express.js, React, and Node.js).
