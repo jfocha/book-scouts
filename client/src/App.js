@@ -64,9 +64,9 @@ const App = () => {
       
       <PrimarySearchAppBar />
       </div>
-      {/* <LandingPage /> */}
+      <LandingPage />
       {/* <div><SimplePaper /></div> */}
-      <div><EnhancedTable /></div>
+      {/* <div><EnhancedTable /></div> */}
       {/* <div><Cart /></div> */}
 
     </div>
