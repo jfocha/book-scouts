@@ -2,7 +2,7 @@
 This is an online library management app where users can rent books for a specific time .
 This will have 2 interfaces.
 	* User Inerface <br>
-	* Admin Interface
+	* Admin Interface<br>
 Users registered for this application can :
   - browse books from the library
 	- filter them based on category, author, publcations etc..
