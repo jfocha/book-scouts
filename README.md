@@ -1,14 +1,14 @@
 # book-scouts
 This is an online library management app where users can rent books for a specific time .
-This will have 2 interfaces.
+This will have 2 interfaces:
 	* User Inerface <br>
 	* Admin Interface<br>
-Users registered for this application can :
-  - browse books from the library
+* Users registered for this application can :
+  	- browse books from the library
 	- filter them based on category, author, publcations etc..
 	- Pay & Rent them for a specific duration
 	- Like/Review them (Future Enchancement)<br>
-Admin of this application can:
+* Admin of this application can:
   	- List/manage books
  	- Track rented books and thier availability
 	- Send notifications via email to users once lease expires
