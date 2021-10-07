@@ -1,7 +1,7 @@
 # book-scouts
 This is an online library management app where users can rent books for a specific time .
 This will have 2 interfaces.
-	* User Inerface
+	* User Inerface <br>
 	* Admin Interface
 Users registered for this application can :
   - browse books from the library
