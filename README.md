@@ -7,7 +7,8 @@ Users registered for this application can :
   - browse books from the library
 	- filter them based on category, author, publcations etc..
 	- Pay & Rent them for a specific duration
-	- Like/Review them (Future Enchancement)<br>
+	- Like/Review them (Future Enchancement)
+<br>
 Admin of this application can:
   - List/manage books
   - Track rented books and thier availability
