@@ -203,7 +203,7 @@ const EnhancedTableToolbar = (props) => {
           id="tableTitle"
           component="div"
         >
-          Nutrition
+          Your Checked Out Books
         </Typography>
       )}
 
@@ -245,9 +245,13 @@ export default function EnhancedTable() {
   const booksCheckedOut = data?.books || [];
   console.log(booksCheckedOut);
 
-  const rows = [
-  createData(booksCheckedOut.title, booksCheckedOut.author, booksCheckedOut.description)];
+  const rows = booksCheckedOut.map(bookrecord => {
+    return bookrecord;
+  });
 
+ // const rows = [
+ // createData(booksCheckedOut.title, booksCheckedOut.author, booksCheckedOut.description)];
+ console.log(rows);
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
@@ -355,7 +359,7 @@ export default function EnhancedTable() {
                         scope="row"
                         padding="none"
                       >
-                        {row.name}
+                        {row.title}
                       </TableCell>
                       <TableCell align="right">{row.author}</TableCell>
                       <TableCell align="right">{row.description}</TableCell>

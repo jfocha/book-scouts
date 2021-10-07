@@ -88,7 +88,7 @@ export default function SimplePaper() {
                 </SpeedDial> */}
                         <Stack spacing={2} direction="row">
                             
-                            <Button variant="checkout" onClick={() => checkoutBookHandler(booksId[i])}>Checkout</Button>
+                            <Button variant="outlined" onClick={() => checkoutBookHandler(booksId[i])}>Checkout</Button>
                         </Stack>
 
                     </Paper>

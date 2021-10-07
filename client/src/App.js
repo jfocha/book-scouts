@@ -42,18 +42,18 @@ const client = new ApolloClient({
 });
 
 const App = () => {
-  // declare a new state variable for modal open
-  const [open, setOpen] = useState(true);
+  // // declare a new state variable for modal open
+  // const [open, setOpen] = useState(false);
 
-  // function to handle modal open
-  const handleOpen = () => {
-    setOpen(false);
-  };
+  // // function to handle modal open
+  // const handleOpen = () => {
+  //   setOpen(true);
+  // };
 
-  // function to handle modal close
-  const handleClose = () => {
-    setOpen(false);
-  };
+  // // function to handle modal close
+  // const handleClose = () => {
+  //   setOpen(false);
+  // };
 
   return (
     <ApolloProvider client={client}>
@@ -61,12 +61,12 @@ const App = () => {
       
       <div>
         
-      <ModalDialog open={open} handleClose={handleClose} />
+      
       <PrimarySearchAppBar />
       </div>
       {/* <LandingPage /> */}
-      <div><SimplePaper /></div>
-      {/* <div><EnhancedTable /></div> */}
+      {/* <div><SimplePaper /></div> */}
+      <div><EnhancedTable /></div>
       {/* <div><Cart /></div> */}
 
     </div>
