@@ -245,22 +245,23 @@ export default function EnhancedTable() {
   const booksCheckedOut = data?.books || [];
   console.log(booksCheckedOut);
 
-   const rows = booksCheckedOut.map(bookrecord => {
-     return bookrecord.title;
-
-   });
-   const author = booksCheckedOut.map(bookrecord => {
-    return bookrecord.author;
+  const rows = booksCheckedOut.map(bookrecord => {
+    return bookrecord.title;
 
   });
-  const description = booksCheckedOut.map(bookrecord => {
-    return bookrecord.description;
+  const author = booksCheckedOut.map(bookrecord => {
+   return bookrecord.author;
 
-  });
+ });
+ const description = booksCheckedOut.map(bookrecord => {
+   return bookrecord.description;
 
-  // const rows = [
-  // createData(booksCheckedOut.title, booksCheckedOut.author, booksCheckedOut.description)];
-  console.log(rows);
+ });
+
+ // const rows = [
+ // createData(booksCheckedOut.title, booksCheckedOut.author, booksCheckedOut.description)];
+ console.log(rows);
+
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
