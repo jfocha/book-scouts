@@ -1,12 +1,9 @@
-// import React from "react";
 import { React, useState } from 'react';
 import { ImageBackground, StyleSheet, Text, View } from "react-native";
 import LogoImg from './573.jpg';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import ModalDialog from '../ModalDialog';
-
-
 
 const LandingPage = () => {
 
@@ -29,11 +26,9 @@ const LandingPage = () => {
         <Text style={styles.text}>Welcome to our Library
           <Stack spacing={2} direction="row" style={{ justifyContent: 'center' }} m={2} pt={3}>
             <Button variant="contained" onClick={handleOpen}>Sign Up</Button>
-            {/* <Button variant="outlined">Sign In</Button> */}
           </Stack>
           <ModalDialog open={open} handleClose={handleClose} />
         </Text>
-
       </ImageBackground>
     </View>
   )

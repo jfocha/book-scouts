@@ -1,9 +1,6 @@
 import { ApolloClient, createHttpLink, InMemoryCache } from '@apollo/client';
-// import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { ApolloProvider } from '@apollo/react-hooks';
-// import ApolloClient from 'apollo-boost';
 import { useState } from 'react';
-import ModalDialog from './components/ModalDialog';
 import PrimarySearchAppBar from '././components/Navbar'
 import EnhancedTable from './components/BookTable';
 import SimplePaper from './components/SearchedBooks';
@@ -18,7 +15,7 @@ const httpLink = createHttpLink({
 
 const authLink = setContext((_, { headers }) => {
   // get the authentication token from local storage if it exists
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem('id_token');
   // return the headers to the context so httpLink can read them
   return {
     headers: {
@@ -29,15 +26,6 @@ const authLink = setContext((_, { headers }) => {
 });
 
 const client = new ApolloClient({
-  // request: operation => {
-  //   const token = localStorage.getItem('id_token');
-
-  //   operation.setContext({
-  //     headers: {
-  //       authorization: token ? `Bearer ${token}` : ''
-  //     }
-  //   });
-  // },
   link: authLink.concat(httpLink),
   cache: new InMemoryCache(),
 });
@@ -71,10 +59,6 @@ const App = () => {
         <main>
           <Gallery currentCategory={currentCategory}></Gallery>
         </main>
-        {/* <div><SimplePaper /></div> */}
-        {/* <div><EnhancedTable /></div> */}
-        {/* <div><Cart /></div> */}
-
       </div>
     </ApolloProvider>
   );

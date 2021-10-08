@@ -11,6 +11,8 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormGroup from '@mui/material/FormGroup';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
+import Auth from '../../utils/auth';
+import LoginModalDialog from '../LoginModalDialog';
 
 export default function MenuAppBar(props) {
   const {
@@ -23,7 +25,8 @@ export default function MenuAppBar(props) {
     document.title = currentCategory.name;
   }, [currentCategory]);
 
-  const [auth, setAuth] = React.useState(true);
+  const [auth, setAuth] = React.useState(false);
+  console.log(auth);
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleChange = (event) => {
@@ -38,6 +41,24 @@ export default function MenuAppBar(props) {
     setAnchorEl(null);
   };
 
+  // declare a new state variable for modal open
+  const [open, setOpen] = React.useState(false);
+
+  // function to handle modal open
+  const handleLoginOpen = () => {
+    setOpen(true);
+  };
+
+  // function to handle modal close
+  const handleLoginClose = () => {
+    setOpen(false);
+  };
+
+  const logout = event => {
+    event.preventDefault();
+    Auth.logout();
+  };
+
   return (
     <Box sx={{ flexGrow: 1 }}>
 
@@ -50,25 +71,29 @@ export default function MenuAppBar(props) {
             aria-label="menu"
             sx={{ mr: 2 }}
           >
-            {/* <MenuIcon /> */}
 
           </IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Book Scouts
           </Typography>
+          
           <FormGroup>
+          
             <FormControlLabel
-              control={
-                <Switch
-                  checked={auth}
-                  onChange={handleChange}
-                  aria-label="login switch"
-                />
-              }
-              label={auth ? 'Logout' : 'Login'}
+          control={
+            <Switch
+              checked={Auth.loggedIn()}
+              onChange={handleChange}
+              aria-label="login switch"
+              onClick={Auth.loggedIn() ? logout : handleLoginOpen}
             />
+          }
+          label={Auth.loggedIn() ? 'Logout' : 'Login'}
+        />
+            
           </FormGroup>
-          {auth && (
+          
+          {Auth.loggedIn() && (
             <div>
               <IconButton
                 size="large"
@@ -98,16 +123,10 @@ export default function MenuAppBar(props) {
                 {categories.map((category, i) => (
                   <span key={i}>
                     <MenuItem onClick={() => {
-                      setCurrentCategory(categories[1]);
+                      setCurrentCategory(categories[i]);
                       handleClose();
                     }}>
-                      {categories[1].name}
-                    </MenuItem>
-                    <MenuItem onClick={() => {
-                      setCurrentCategory(categories[2]);
-                      handleClose();
-                    }}>
-                      {categories[2].name}
+                      {categories[i].name}
                     </MenuItem>
                   </span>
                 ))}
@@ -116,6 +135,8 @@ export default function MenuAppBar(props) {
           )}
         </Toolbar>
       </AppBar>
+      <LoginModalDialog open={open} handleLoginClose={handleLoginClose} />
     </Box>
+    
   );
 }

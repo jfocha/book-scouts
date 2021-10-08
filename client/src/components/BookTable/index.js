@@ -21,9 +21,8 @@ import Switch from '@mui/material/Switch';
 import DeleteIcon from '@mui/icons-material/Delete';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import { visuallyHidden } from '@mui/utils';
-
 import { useQuery } from '@apollo/client';
-import { QUERY_ME, QUERY_BOOK } from '../../utils/queries';
+import { QUERY_ME } from '../../utils/queries';
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -74,18 +73,6 @@ const headCells = [
     disablePadding: false,
     label: 'Description',
   },
-  // {
-  //   id: 'carbs',
-  //   numeric: true,
-  //   disablePadding: false,
-  //   label: 'Carbs (g)',
-  // },
-  // {
-  //   id: 'protein',
-  //   numeric: true,
-  //   disablePadding: false,
-  //   label: 'Protein (g)',
-  // },
 ];
 
 function EnhancedTableHead(props) {
@@ -207,22 +194,16 @@ export default function EnhancedTable() {
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
-
-
-  const { loading, data } = useQuery(QUERY_BOOK);
+  const { loading, data } = useQuery(QUERY_ME);
   if (loading) {
     return <h1>Loading...</h1>
   }
-  const booksCheckedOut = data?.books || [];
+  const booksCheckedOut = data?.me?.booksCheckedOut || {};
   console.log(booksCheckedOut);
 
   const rows = booksCheckedOut.map(bookrecord => {
     return bookrecord;
   });
-
- // const rows = [
- // createData(booksCheckedOut.title, booksCheckedOut.author, booksCheckedOut.description)];
-//  console.log(rows);
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
@@ -279,7 +260,7 @@ export default function EnhancedTable() {
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
   return (
-    <Box sx={{ width: '100%' }}>
+    <Box  sx={{ width: '100%' }}>
       <Paper sx={{ width: '100%', mb: 2 }}>
         <EnhancedTableToolbar numSelected={selected.length} />
         <TableContainer>
@@ -334,8 +315,6 @@ export default function EnhancedTable() {
                       </TableCell>
                       <TableCell align="right">{row.author}</TableCell>
                       <TableCell align="right">{row.description}</TableCell>
-                      {/* <TableCell align="right">{row.carbs}</TableCell>
-                      <TableCell align="right">{row.protein}</TableCell> */}
                     </TableRow>
                   );
                 })}

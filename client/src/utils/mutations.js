@@ -97,14 +97,3 @@ mutation checkoutBook($checkoutBookBookId: String!) {
        stockCount
      }
    }`;
-
-  // export const REMOVE_BOOK =gql`
-  // mutation removeBook($removeBookBookId: String!) {
-  //   removeBook(bookId: $removeBookBookId) {
-  //     _id
-  //     ISBN
-  //     title
-  //     author
-  //     stockCount
-  //   }
-  // }`;
