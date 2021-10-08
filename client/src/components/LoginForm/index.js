@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { useMutation } from '@apollo/react-hooks';
-import { ADD_USER } from '../../utils/mutations';
+import { LOGIN_USER } from '../../utils/mutations';
 import Auth from '../../utils/auth';
 
 const useStyles = makeStyles(theme => ({
@@ -24,13 +24,13 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const Form = ({ handleClose }) => {
+const LoginForm = ({ handleLoginClose }) => {
   const classes = useStyles();
   // create state variables for each input
 
-  const [userFormData, setUserFormData] = useState({ username: '', email: '', password: '' });
+  const [userFormData, setUserFormData] = useState({ email: '', password: '' });
 
-  const [addUser, { error }] = useMutation(ADD_USER);
+  const [login, { error }] = useMutation(LOGIN_USER);
   console.log(error);
 
   const handleSubmit = async (e) => {
@@ -42,28 +42,21 @@ const Form = ({ handleClose }) => {
       e.stopPropagation();
     }
     try {
-      const { data } = await addUser({
+      const { data } = await login({
         variables: { ...userFormData },
       });
       console.log(data);
-      Auth.login(data.addUser.token);
+      Auth.login(data.login.token);
     } catch (err) {
       console.error(err);
     }
 
-    handleClose();
+    handleLoginClose();
   };
 
   return (
     <form className={classes.root} onSubmit={handleSubmit}>
     
-      <TextField
-        label="User Name"
-        variant="filled"
-        required
-        value={ userFormData.username }
-        onChange={e => setUserFormData({...userFormData, username: e.target.value})}
-      />
       <TextField
         label="Email"
         variant="filled"
@@ -81,15 +74,15 @@ const Form = ({ handleClose }) => {
         onChange={e => setUserFormData({...userFormData, password: e.target.value})}
       />
       <div>
-        <Button variant="contained" onClick={handleClose}>
+        <Button variant="contained" onClick={handleLoginClose}>
           Cancel
         </Button>
         <Button type="submit" variant="contained" color="primary">
-          Signup
+          Login
         </Button>
       </div>
     </form>
   );
 };
 
-export default Form;
+export default LoginForm;

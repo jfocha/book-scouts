@@ -12,10 +12,10 @@ db.once('open', async () => {
   const bookData = [];
   for (let i = 0; i < 20; i++) {
     const book = {
-      title: faker.company.catchPhrase(),
+      title: faker.random.words(),
       author: faker.name.findName(),
       description: faker.lorem.sentence(),
-      ISBN: faker.random.alphaNumeric(),
+      ISBN: faker.image.image(),
       stockCount: faker.random.number({min:1, max:10})
       //category: faker.commerce.department()
     }

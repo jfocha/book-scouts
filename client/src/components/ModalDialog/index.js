@@ -6,7 +6,6 @@ const ModalDialog = ({ open, handleClose }) => {
   return (
     // props received from App.js
     <Dialog open={open} onClose={handleClose}>
-    {/* <Form /> */}
       <Form handleClose={handleClose} />
     </Dialog>
   );

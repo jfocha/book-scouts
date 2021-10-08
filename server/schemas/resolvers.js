@@ -72,6 +72,7 @@ const resolvers = {
     },
     // check out a book ,by bookId
     checkoutBook: async (parent, { bookId }, context) => {
+      console.log("what is this?" + bookId)
       if (context.user) {
         const foundBook = await Book.findById(bookId);
         if (foundBook.stockCount === 0) {
@@ -149,7 +150,7 @@ const resolvers = {
   },
   User: {
     bookCount: (parent) => {
-      return parent.booksCheckedOut.length;
+      return parent.booksCheckedOut;
     },
     booksCheckedOut: async (parent) => {
       const books = await Book.find().where("borrowers").in(parent._id);
