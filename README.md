@@ -131,6 +131,10 @@ To Accomplish our goal, We:
 	Upon a 	successfulconnection, we start the server.
 	- handled user password hashing using the bcrypt library.
 	- used The library Faker.js is used here to help generate dummy data for us to use. 
+On the Client side we ,
+	- used React components to render a single page application 
+	- used Apollo react hooks to render queries and mutations 
+	-  Material UI  to style the pages 
 
 
 ## MockUp
