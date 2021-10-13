@@ -137,7 +137,10 @@ To Accomplish our goal, We:
 	-  Material UI  to style the pages 
 
 ## MockUp
-   
+   <img src ="https://github.com/jfocha/book-scouts/blob/main/client/src/assets/images/Screenshot1.png"> </img>
+   <img src ="https://github.com/jfocha/book-scouts/blob/main/client/src/assets/images/Screenshot2.png"> </img>
+   <img src ="https://github.com/jfocha/book-scouts/blob/main/client/src/assets/images/Screenshot3.png"> </img>
+   <img src ="https://github.com/jfocha/book-scouts/blob/main/client/src/assets/images/Screenshot4.png"> </img>
 
  
 ## Deployment 
