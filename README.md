@@ -139,7 +139,7 @@ To Accomplish our goal, We:
 
 ## WireFrame 
    <img src = "https://github.com/jfocha/book-scouts/blob/main/client/src/assets/wireframe/IMG_6229.jpg" height ="400px" width = "400px"></img>
-   <img src = "https://github.com/jfocha/book-scouts/blob/main/client/src/assets/wireframe/IMG_6229.jpg" height ="400px" width = "400px"></img>
+   <img src = "https://github.com/jfocha/book-scouts/blob/main/client/src/assets/wireframe/IMG_6231.jpg" height ="400px" width = "400px"></img>
 
 	
 ## MockUp
