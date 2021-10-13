@@ -1,16 +1,16 @@
 # book-scouts
 This is an online library management app where users can rent books for a specific time .
-This will have 2 interfaces.
-	* User Inerface
-	* Admin Interface
-Users registered for this application can :
-  - browse books from the library
+This will have 2 interfaces:
+	* User Interface <br>
+	* Admin Interface<br>
+* Users registered for this application can :
+  	- browse books from the library
 	- filter them based on category, author, publcations etc..
 	- Pay & Rent them for a specific duration
-	- Like/Review them (Future Enchancement)
-Admin of this application can:
-  - List/manage books
-  - Track rented books and thier availability
+	- Like/Review them (Future Enchancement)<br>
+* Admin of this application can:
+  	- List/manage books
+ 	- Track rented books and thier availability
 	- Send notifications via email to users once lease expires
 This app combine all four technologies of the MERN stack (MongoDB, Express.js, React, and Node.js).
 
