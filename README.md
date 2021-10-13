@@ -137,8 +137,8 @@ To Accomplish our goal, We:
 	-  Material UI  to style the pages 
 
 ## WireFrame 
-   <img src = "https://github.com/jfocha/book-scouts/blob/main/client/src/assets/wireframe/IMG_6229.jpg" height ="400px" width = "200px"></img>
-   <img src = "https://github.com/jfocha/book-scouts/blob/main/client/src/assets/wireframe/IMG_6229.jpg" height ="400px" width = "200px"></img>
+   <img src = "https://github.com/jfocha/book-scouts/blob/main/client/src/assets/wireframe/IMG_6229.jpg" height ="400px" width = "400px"></img>
+   <img src = "https://github.com/jfocha/book-scouts/blob/main/client/src/assets/wireframe/IMG_6229.jpg" height ="400px" width = "400px"></img>
 
 	
 ## MockUp
