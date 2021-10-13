@@ -127,21 +127,26 @@ const resolvers = {
           .equals(bookId)
           .where("borrowers")
           .in(context.user._id);
+          console.log("130"+ isBorrowedByUser);
+        
         if (isBorrowedByUser) {
           foundBook.stockCount++;
           foundBook.borrowers.pull(context.user._id);
           await foundBook.save();
+          console.log(foundBook);
           return foundBook;
+          
         }
         throw new Error("You have not borrowed this book!");
       }
       throw new AuthenticationError(
         "checkout resolver function : -You need to be logged in!"
       );
-    },
+    }
   },
   User: {
     bookCount: (parent) => {
+      
       return parent.booksCheckedOut;
     },
     booksCheckedOut: async (parent) => {

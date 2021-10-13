@@ -10,6 +10,7 @@ mutation login($email:String!,$password:String!){
         }
     }
 }`;
+
 // First last name to be included ??
 export const ADD_USER = gql `
 mutation addUser($username:String!, $email:String!, $password:String!){
@@ -20,7 +21,6 @@ mutation addUser($username:String!, $email:String!, $password:String!){
             username
             email
         }
-       
     }
 }`;
 
@@ -42,7 +42,6 @@ export const SAVE_BOOK = gql `
   }
 `;
 
-
 export const REMOVE_BOOK = gql `
   mutation removeBook($bookId: String!) {
     removeBook(bookId: $bookId) {
@@ -59,8 +58,6 @@ export const REMOVE_BOOK = gql `
       }
     }
   }
-
- 
 `;
 
 export const ADD_BOOK = gql ` 
@@ -87,3 +84,14 @@ mutation checkoutBook($checkoutBookBookId: String!) {
     }
   }
 `;
+
+export const RETURN_BOOK =gql`
+mutation returnBook($returnBookBookId: String!) {
+    returnBook(bookId: $returnBookBookId) {
+      _id
+      ISBN
+      title
+      author
+      stockCount
+    }
+  }`;

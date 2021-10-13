@@ -16,7 +16,8 @@ export const QUERY_ME = gql`
         category
     }
   }
-}`;
+}
+`;
 
 // Query users and books they checked out 
 export const QUERY_USERS =gql`
