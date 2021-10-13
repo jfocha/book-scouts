@@ -135,8 +135,12 @@ To Accomplish our goal, We:
 	- used React components to render a single page application 
 	- used Apollo react hooks to render queries and mutations 
 	-  Material UI  to style the pages 
+
 ## WireFrame 
-	![WireFrame]("https://github.com/jfocha/book-scouts/blob/main/client/src/assets/wireframe/IMG_6229.jpg")
+   <img src = "https://github.com/jfocha/book-scouts/blob/main/client/src/assets/wireframe/IMG_6229.jpg" height ="400px" width = "200px"></img>
+   <img src = "https://github.com/jfocha/book-scouts/blob/main/client/src/assets/wireframe/IMG_6229.jpg" height ="400px" width = "200px"></img>
+
+	
 ## MockUp
    <img src ="https://github.com/jfocha/book-scouts/blob/main/client/src/assets/images/Screenshot1.png"> </img>
    <img src ="https://github.com/jfocha/book-scouts/blob/main/client/src/assets/images/Screenshot2.png"> </img>
