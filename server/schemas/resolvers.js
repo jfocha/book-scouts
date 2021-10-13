@@ -36,7 +36,7 @@ const resolvers = {
     },
     login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });
-
+      console.log(user)
       if (!user) {
         throw new AuthenticationError("Incorrect credentials");
       }
@@ -136,8 +136,8 @@ const resolvers = {
           .in(context.user._id);
         if (isBorrowedByUser) {
           foundBook.stockCount++;
-          foundBook.borrowers.pull(context.user._id);
           await foundBook.save();
+          //const returnBook= await Book.findByIdAndUpdate(bookId)
           return foundBook;
         }
         throw new Error("You have not borrowed this book!");
@@ -149,6 +149,10 @@ const resolvers = {
   },
   User: {
     bookCount: (parent) => {
+      if(parent.booksCheckedOut.length ===0)
+      {
+        return 0;
+      }
       return parent.booksCheckedOut.length;
     },
     booksCheckedOut: async (parent) => {

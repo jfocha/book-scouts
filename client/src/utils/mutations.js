@@ -86,3 +86,14 @@ mutation checkoutBook($checkoutBookBookId: String!) {
       stockCount
     }
   }`;
+
+  export const RETURN_BOOK =gql`
+mutation returnBook($returnBookBookId: String!) {
+    returnBook(bookId: $returnBookBookId) {
+      _id
+      ISBN
+      title
+      author
+      stockCount
+    }
+  }`;
