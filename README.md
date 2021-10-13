@@ -45,6 +45,7 @@ This app combine all four technologies of the MERN stack (MongoDB, Express.js, R
   * [Installation](#installation)
   * [Usage](#usage)
   * [Process](#process)
+  * [ WireFrame ](#wireframe)
   * [MockUp](#mockup)
   * [Deployment](#deployment)
   * [Contribution](#contribution)
