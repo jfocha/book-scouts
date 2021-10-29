@@ -25,6 +25,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Form = ({ handleClose }) => {
+
   const classes = useStyles();
   // create state variables for each input
 
@@ -50,7 +51,6 @@ const Form = ({ handleClose }) => {
     } catch (err) {
       console.error(err);
     }
-
     handleClose();
   };
 
