@@ -135,7 +135,7 @@ export default function MenuAppBar(props) {
           )}
         </Toolbar>
       </AppBar>
-      <LoginModalDialog open={open} handleLoginClose={handleLoginClose} />
+      <LoginModalDialog open={open} handleLoginClose={handleLoginClose} setCurrentCategory={setCurrentCategory} categories={categories} />
     </Box>
     
   );

@@ -3,7 +3,7 @@ import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import CheckoutForm from "./CheckoutForm";
 // import Auth from '../utils/auth';
-// import "./pay.css";
+import "./pay.css";
 
 
 // Make sure to call loadStripe outside of a component’s render to avoid
@@ -14,7 +14,7 @@ const token = loadStripe("pk_test_51Jh10GKqUGoZm9h84dJeuXUkp5wC6yX6Vs5XXZ7vPYF52
 const Cart =() => {
   return (
     <div className="App">
-      <Elements stripe={token}>
+      <Elements stripe={token} >
         <CheckoutForm />
       </Elements>
     </div>

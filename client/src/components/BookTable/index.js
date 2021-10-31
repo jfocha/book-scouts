@@ -194,10 +194,13 @@ export default function EnhancedTable() {
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
-  const { loading, data } = useQuery(QUERY_ME);
+  const { loading, data } = useQuery(QUERY_ME, { variables: { status: 'OPEN' } });
   if (loading) {
     return <h1>Loading...</h1>
   }
+  
+  
+
   const booksCheckedOut = data?.me?.booksCheckedOut || {};
   console.log(booksCheckedOut);
 

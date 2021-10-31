@@ -10,7 +10,7 @@ db.once('open', async () => {
   await Book.deleteMany({});
   // create book data
   const bookData = [];
-  for (let i = 0; i < 20; i++) {
+  for (let i = 0; i < 100; i++) {
     const book = {
       title: faker.random.words(),
       author: faker.name.findName(),

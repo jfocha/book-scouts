@@ -11,11 +11,66 @@ import Pagination from '@mui/material/Pagination';
 import Auth from '../../utils/auth';
 import { useMutation } from '@apollo/react-hooks';
 import { CHECKOUT_BOOK } from '../../utils/mutations';
+import { QUERY_ME } from '../../utils/queries';
+import { gql } from '@apollo/client';
 
 export default function DisplayBooks(props) {
 
-    const [checkoutBookData, { error }] = useMutation(CHECKOUT_BOOK);
-    console.log(error);
+    // const [checkoutBookData, { error }] = useMutation(CHECKOUT_BOOK, {
+    //     update(cache, { data: { addBook } }) {
+    //         try {
+    //         // read what's currently in the cache
+    //         const booksCheckedOut = cache?.readQuery({ 
+    //             query: QUERY_ME
+                
+    //          });
+    //             console.log("addBook " + addBook.username)
+    //         // prepend the newest thought to the front of the array
+    //         cache.writeQuery({
+    //             query: QUERY_ME,
+    //             data: { me: { ...booksCheckedOut, booksCheckedOut: {...booksCheckedOut, addBook}} }
+    //         });
+
+            
+    //     } catch (e) {
+    //         console.error(e);
+    //     }
+    //     },
+    //     refetchQueries: () => [{
+    //         query: QUERY_ME,
+    //         variables: { 
+    //           status: 'OPEN',
+    //         },
+    //       }]
+    // });
+    // console.log(error);
+
+    const [checkoutBookData, { error }] = useMutation(CHECKOUT_BOOK, {
+        update(cache, { data: { addBook } }) {
+          cache.modify({
+            fields: {
+                booksCheckedOut(existingBooksCheckedOut = []) {
+                const newBooksCheckedOutRef = cache.writeFragment({
+                  data: addBook,
+                  fragment: gql`
+                    fragment NewBooksCheckedOut on User {
+                      id
+                      type
+                    }
+                  `
+                });
+                return [...existingBooksCheckedOut, newBooksCheckedOutRef];
+              }
+            }
+          });
+        },
+        refetchQueries: () => [{
+            query: QUERY_ME,
+            variables: { 
+              status: 'OPEN',
+            },
+          }]
+      });
 
     const [show, setShow] = useState(true);
 

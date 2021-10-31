@@ -77,11 +77,16 @@ export default function CheckoutForm() {
       setSucceeded(true);
     }
   };
-
+  
   return (
+    <div>
+      <h3>
+        Please pay outstanding balances here.
+      </h3>
     <form id="payment-form" onSubmit={handleSubmit}>
       <CardElement id="card-element" options={cardStyle} onChange={handleChange} />
       <button
+      className="button1"
         disabled={processing || disabled || succeeded}
         id="submit"
       >
@@ -110,5 +115,6 @@ export default function CheckoutForm() {
         </a> Refresh the page to pay again.
       </p>
     </form>
+    </div>
   );
 }
