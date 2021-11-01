@@ -134,13 +134,13 @@ EnhancedTableHead.propTypes = {
 };
 
 const EnhancedTableToolbar = (props) => {
-  const { numSelected, checkedOutBookData } = props;
+  const { numSelected, checkedOutBookData, setSelected, setSelectedId } = props;
   // console.log("return data " + checkedOutBookData)
   const [returnBookData] = useMutation(RETURN_BOOK, {
     update(cache, { data: { removeBook } }) {
       cache.modify({
         fields: {
-            booksCheckedOut(existingBooksCheckedOut = []) {
+          booksCheckedOut(existingBooksCheckedOut = []) {
             const newBooksCheckedOutRef = cache.writeFragment({
               data: removeBook,
               fragment: gql`
@@ -156,30 +156,32 @@ const EnhancedTableToolbar = (props) => {
       });
     },
     refetchQueries: () => [{
-        query: QUERY_ME,
-        variables: { 
-          status: 'OPEN',
-        },
-      }]
+      query: QUERY_ME,
+      variables: {
+        status: 'OPEN',
+      },
+    }]
   });
 
   const returnBookHandler = async (bookNumber) => {
     console.log("returnBookHandler " + typeof bookNumber + " " + bookNumber);
-    
+
     for (let index = 0; index < bookNumber.length; index++) {
-      
+
       console.log(bookNumber[index])
-    
-    try {
+
+      try {
         const { data } = await returnBookData({
-            variables: { returnBookBookId: bookNumber[index] }
+          variables: { returnBookBookId: bookNumber[index] }
         });
         console.log(data);
-    } catch (e) {
+      } catch (e) {
         console.error(e);
+      }
     }
-  }
-};
+    setSelected([]);
+    setSelectedId([]);
+  };
 
   return (
     <Toolbar
@@ -214,7 +216,7 @@ const EnhancedTableToolbar = (props) => {
 
       {numSelected > 0 ? (
         <Tooltip title="Delete">
-          <IconButton onClick={() => {returnBookHandler(checkedOutBookData)}}>
+          <IconButton onClick={() => { returnBookHandler(checkedOutBookData) }}>
             {console.log(checkedOutBookData)}
             <DeleteIcon />
           </IconButton>
@@ -247,11 +249,11 @@ export default function EnhancedTable() {
   if (loading) {
     return <h1>Loading...</h1>
   }
-  
-  
+
+
 
   const booksCheckedOut = data?.me?.booksCheckedOut || {};
-  
+
 
   const rows = booksCheckedOut.map(bookrecord => {
     return bookrecord;
@@ -338,9 +340,9 @@ export default function EnhancedTable() {
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
   return (
-    <Box  sx={{ width: '100%' }}>
+    <Box sx={{ width: '100%' }}>
       <Paper sx={{ width: '100%', mb: 2 }}>
-        <EnhancedTableToolbar numSelected={selected.length} checkedOutBookData={selectedId} />
+        <EnhancedTableToolbar numSelected={selected.length} checkedOutBookData={selectedId} setSelected={setSelected} setSelectedId={setSelectedId} />
         <TableContainer>
           <Table
             sx={{ minWidth: 750 }}
