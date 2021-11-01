@@ -9,6 +9,7 @@ export const QUERY_ME = gql`
     email
     bookCount
     booksCheckedOut {
+        _id
         author
         title
         description

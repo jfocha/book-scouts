@@ -24,7 +24,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const LoginForm = ({ handleLoginClose, setCurrentCategory, categories }) => {
+const LoginForm = ({ handleLoginClose }) => {
 
   const classes = useStyles();
   // create state variables for each input
@@ -51,7 +51,7 @@ const LoginForm = ({ handleLoginClose, setCurrentCategory, categories }) => {
     } catch (err) {
       console.error(err);
     }
-    setCurrentCategory(categories[1]);
+    // setCurrentCategory(categories[1]);
     handleLoginClose();
   };
 

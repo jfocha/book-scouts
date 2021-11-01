@@ -1,13 +1,14 @@
 import { ApolloClient, createHttpLink, InMemoryCache } from '@apollo/client';
 import { ApolloProvider } from '@apollo/react-hooks';
 import { useState } from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import PrimarySearchAppBar from '././components/Navbar'
 import EnhancedTable from './components/BookTable';
 import SimplePaper from './components/SearchedBooks';
 import Cart from './components/Checkout';
 import { setContext } from '@apollo/client/link/context';
 import LandingPage from './components/LandingPage';
-import Gallery from './components/Gallery';
+import NoMatch from './components/NoMatch';
 
 const httpLink = createHttpLink({
   uri: '/graphql',
@@ -31,9 +32,7 @@ const client = new ApolloClient({
     typePolicies: {
       Book: {
         fields: {
-          title: {
             merge: true,
-          },
         },
       },
     },
@@ -42,13 +41,13 @@ const client = new ApolloClient({
 
 const App = () => {
   const [categories] = useState([
-    { name: 'Book Scouts', description: <LandingPage /> },
-    { name: 'Search Books', description: <SimplePaper /> },
+    { name: 'Book Scouts', description: "/" },
+    { name: 'Search Books', description: "/search" },
     {
       name: 'My Account',
-      description: <EnhancedTable />,
+      description: "/account/:username?",
     },
-    { name: 'Pay Page', description: <Cart /> },
+    { name: 'Pay Page', description: "/pay" },
 
   ]);
 
@@ -56,20 +55,29 @@ const App = () => {
 
   return (
     <ApolloProvider client={client}>
-      <div className="App">
+      <Router>
+        <div className="App">
 
-        <header>
-          <PrimarySearchAppBar
-            component={'span'}
-            categories={categories}
-            setCurrentCategory={setCurrentCategory}
-            currentCategory={currentCategory}
-          ></PrimarySearchAppBar>
-        </header>
-        <main>
-          <Gallery currentCategory={currentCategory}></Gallery>
-        </main>
-      </div>
+          <header>
+            <PrimarySearchAppBar
+              component={'span'}
+              categories={categories}
+              setCurrentCategory={setCurrentCategory}
+              currentCategory={currentCategory}
+            ></PrimarySearchAppBar>
+          </header>
+          <main>
+            <Switch>
+              <Route exact path="/" component={LandingPage} />
+              <Route exact path="/search" component={SimplePaper} />
+              <Route exact path="/account/:username?" component={EnhancedTable} />
+              <Route exact path="/pay" component={Cart} />
+
+              <Route component={NoMatch} />
+            </Switch>
+          </main>
+        </div>
+      </Router>
     </ApolloProvider>
   );
 };

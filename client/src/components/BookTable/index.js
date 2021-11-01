@@ -21,6 +21,8 @@ import Switch from '@mui/material/Switch';
 import DeleteIcon from '@mui/icons-material/Delete';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import { visuallyHidden } from '@mui/utils';
+import { useMutation } from '@apollo/react-hooks';
+import { RETURN_BOOK } from '../../utils/mutations';
 import { useQuery } from '@apollo/client';
 import { QUERY_ME } from '../../utils/queries';
 
@@ -132,7 +134,27 @@ EnhancedTableHead.propTypes = {
 };
 
 const EnhancedTableToolbar = (props) => {
-  const { numSelected } = props;
+  const { numSelected, checkedOutBookData } = props;
+  // console.log("return data " + checkedOutBookData)
+  const [returnBookData, { error }] = useMutation(RETURN_BOOK)
+
+  const returnBookHandler = async (bookNumber) => {
+    console.log("returnBookHandler " + typeof bookNumber + " " + bookNumber);
+    
+    for (let index = 0; index < bookNumber.length; index++) {
+      
+      console.log(bookNumber[index])
+    
+    try {
+        const { data } = await returnBookData({
+            variables: { returnBookBookId: bookNumber[index] }
+        });
+        console.log(data);
+    } catch (e) {
+        console.error(e);
+    }
+  }
+};
 
   return (
     <Toolbar
@@ -167,7 +189,8 @@ const EnhancedTableToolbar = (props) => {
 
       {numSelected > 0 ? (
         <Tooltip title="Delete">
-          <IconButton>
+          <IconButton onClick={() => {returnBookHandler(checkedOutBookData)}}>
+            {console.log(checkedOutBookData)}
             <DeleteIcon />
           </IconButton>
         </Tooltip>
@@ -190,6 +213,7 @@ export default function EnhancedTable() {
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('author');
   const [selected, setSelected] = React.useState([]);
+  const [selectedId, setSelectedId] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
@@ -202,11 +226,12 @@ export default function EnhancedTable() {
   
 
   const booksCheckedOut = data?.me?.booksCheckedOut || {};
-  console.log(booksCheckedOut);
+  
 
   const rows = booksCheckedOut.map(bookrecord => {
     return bookrecord;
   });
+  console.log(booksCheckedOut[0]._id);
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
@@ -218,9 +243,14 @@ export default function EnhancedTable() {
     if (event.target.checked) {
       const newSelecteds = rows.map((n) => n.title);
       setSelected(newSelecteds);
+
+      const newSelectedsId = rows.map((n) => n._id);
+      setSelectedId(newSelectedsId);
+
       return;
     }
     setSelected([]);
+    setSelectedId([]);
   };
 
   const handleClick = (event, title) => {
@@ -241,6 +271,35 @@ export default function EnhancedTable() {
     }
 
     setSelected(newSelected);
+  };
+
+  // const handleSelectAllClickId = (event) => {
+  //   if (event.target.checked) {
+  //     const newSelectedsId = rows.map((n) => n._id);
+  //     setSelectedId(newSelectedsId);
+  //     return;
+  //   }
+  //   setSelectedId([]);
+  // };
+
+  const handleClickId = (event, _id) => {
+    const selectedIndexId = selectedId.indexOf(_id);
+    let newSelectedId = [];
+
+    if (selectedIndexId === -1) {
+      newSelectedId = newSelectedId.concat(selectedId, _id);
+    } else if (selectedIndexId === 0) {
+      newSelectedId = newSelectedId.concat(selectedId.slice(1));
+    } else if (selectedIndexId === selectedId.length - 1) {
+      newSelectedId = newSelectedId.concat(selectedId.slice(0, -1));
+    } else if (selectedIndexId > 0) {
+      newSelectedId = newSelectedId.concat(
+        selectedId.slice(0, selectedIndexId),
+        selectedId.slice(selectedIndexId + 1),
+      );
+    }
+
+    setSelectedId(newSelectedId);
   };
 
   const handleChangePage = (event, newPage) => {
@@ -265,7 +324,7 @@ export default function EnhancedTable() {
   return (
     <Box  sx={{ width: '100%' }}>
       <Paper sx={{ width: '100%', mb: 2 }}>
-        <EnhancedTableToolbar numSelected={selected.length} />
+        <EnhancedTableToolbar numSelected={selected.length} checkedOutBookData={selectedId} />
         <TableContainer>
           <Table
             sx={{ minWidth: 750 }}
@@ -292,7 +351,10 @@ export default function EnhancedTable() {
                   return (
                     <TableRow
                       hover
-                      onClick={(event) => handleClick(event, row.title)}
+                      onClick={(event) => {
+                        handleClick(event, row.title);
+                        handleClickId(event, row._id);
+                      }}
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}

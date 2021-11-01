@@ -11,6 +11,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormGroup from '@mui/material/FormGroup';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
+import { Link } from 'react-router-dom';
 import Auth from '../../utils/auth';
 import LoginModalDialog from '../LoginModalDialog';
 
@@ -59,6 +60,14 @@ export default function MenuAppBar(props) {
     Auth.logout();
   };
 
+  const handleClick = (location) => {
+    setCurrentCategory(categories[location]);
+    if (location === 0) {
+      Auth.logout();
+    }
+    handleClose();
+  }
+
   return (
     <Box sx={{ flexGrow: 1 }}>
 
@@ -76,23 +85,23 @@ export default function MenuAppBar(props) {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Book Scouts
           </Typography>
-          
+
           <FormGroup>
-          
+
             <FormControlLabel
-          control={
-            <Switch
-              checked={Auth.loggedIn()}
-              onChange={handleChange}
-              aria-label="login switch"
-              onClick={Auth.loggedIn() ? logout : handleLoginOpen}
+              control={
+                <Switch
+                  checked={Auth.loggedIn()}
+                  onChange={handleChange}
+                  aria-label="login switch"
+                  onClick={Auth.loggedIn() ? logout : handleLoginOpen}
+                />
+              }
+              label={Auth.loggedIn() ? 'Logout' : 'Login'}
             />
-          }
-          label={Auth.loggedIn() ? 'Logout' : 'Login'}
-        />
-            
+
           </FormGroup>
-          
+
           {Auth.loggedIn() && (
             <div>
               <IconButton
@@ -122,11 +131,8 @@ export default function MenuAppBar(props) {
               >
                 {categories.map((category, i) => (
                   <span key={i}>
-                    <MenuItem onClick={() => {
-                      setCurrentCategory(categories[i]);
-                      handleClose();
-                    }}>
-                      {categories[i].name}
+                    <MenuItem onClick={() => {handleClick(i)}}>
+                      <Link to={categories[i].description}>{categories[i].name}</Link>
                     </MenuItem>
                   </span>
                 ))}
@@ -135,8 +141,8 @@ export default function MenuAppBar(props) {
           )}
         </Toolbar>
       </AppBar>
-      <LoginModalDialog open={open} handleLoginClose={handleLoginClose} setCurrentCategory={setCurrentCategory} categories={categories} />
+      <LoginModalDialog open={open} handleLoginClose={handleLoginClose} />
     </Box>
-    
+
   );
 }

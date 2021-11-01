@@ -103,6 +103,7 @@ const resolvers = {
 
     // remove a book from Library by bookId
     removeBook: async (parent, { bookId }, context) => {
+      console.log("removeBook " + bookId);
       if (context.user) 
       {
         if (!context.user.admin) {
