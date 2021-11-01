@@ -23,7 +23,7 @@ import FilterListIcon from '@mui/icons-material/FilterList';
 import { visuallyHidden } from '@mui/utils';
 import { useMutation } from '@apollo/react-hooks';
 import { RETURN_BOOK } from '../../utils/mutations';
-import { useQuery } from '@apollo/client';
+import { useQuery, gql } from '@apollo/client';
 import { QUERY_ME } from '../../utils/queries';
 
 function descendingComparator(a, b, orderBy) {
@@ -136,7 +136,32 @@ EnhancedTableHead.propTypes = {
 const EnhancedTableToolbar = (props) => {
   const { numSelected, checkedOutBookData } = props;
   // console.log("return data " + checkedOutBookData)
-  const [returnBookData, { error }] = useMutation(RETURN_BOOK)
+  const [returnBookData] = useMutation(RETURN_BOOK, {
+    update(cache, { data: { removeBook } }) {
+      cache.modify({
+        fields: {
+            booksCheckedOut(existingBooksCheckedOut = []) {
+            const newBooksCheckedOutRef = cache.writeFragment({
+              data: removeBook,
+              fragment: gql`
+                fragment NewBooksCheckedOut on User {
+                  id
+                  type
+                }
+              `
+            });
+            return [...existingBooksCheckedOut, newBooksCheckedOutRef];
+          }
+        }
+      });
+    },
+    refetchQueries: () => [{
+        query: QUERY_ME,
+        variables: { 
+          status: 'OPEN',
+        },
+      }]
+  });
 
   const returnBookHandler = async (bookNumber) => {
     console.log("returnBookHandler " + typeof bookNumber + " " + bookNumber);
@@ -231,7 +256,7 @@ export default function EnhancedTable() {
   const rows = booksCheckedOut.map(bookrecord => {
     return bookrecord;
   });
-  console.log(booksCheckedOut[0]._id);
+
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
@@ -272,15 +297,6 @@ export default function EnhancedTable() {
 
     setSelected(newSelected);
   };
-
-  // const handleSelectAllClickId = (event) => {
-  //   if (event.target.checked) {
-  //     const newSelectedsId = rows.map((n) => n._id);
-  //     setSelectedId(newSelectedsId);
-  //     return;
-  //   }
-  //   setSelectedId([]);
-  // };
 
   const handleClickId = (event, _id) => {
     const selectedIndexId = selectedId.indexOf(_id);
