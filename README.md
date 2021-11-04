@@ -45,6 +45,7 @@ This app combine all four technologies of the MERN stack (MongoDB, Express.js, R
   * [Installation](#installation)
   * [Usage](#usage)
   * [Process](#process)
+  * [ WireFrame ](#wireframe)
   * [MockUp](#mockup)
   * [Deployment](#deployment)
   * [Contribution](#contribution)
@@ -131,10 +132,21 @@ To Accomplish our goal, We:
 	Upon a 	successfulconnection, we start the server.
 	- handled user password hashing using the bcrypt library.
 	- used The library Faker.js is used here to help generate dummy data for us to use. 
+	On the Client side we ,
+	- used React components to render a single page application 
+	- used Apollo react hooks to render queries and mutations 
+	-  Material UI  to style the pages 
 
+## WireFrame 
+   <img src = "https://github.com/jfocha/book-scouts/blob/main/client/src/assets/wireframe/IMG_6229.jpg" height ="400px" width = "400px"></img>
+   <img src = "https://github.com/jfocha/book-scouts/blob/main/client/src/assets/wireframe/IMG_6231.jpg" height ="400px" width = "400px"></img>
 
+	
 ## MockUp
-   
+   <img src ="https://github.com/jfocha/book-scouts/blob/main/client/src/assets/images/Screenshot1.png"> </img>
+   <img src ="https://github.com/jfocha/book-scouts/blob/main/client/src/assets/images/Screenshot2.png"> </img>
+   <img src ="https://github.com/jfocha/book-scouts/blob/main/client/src/assets/images/Screenshot3.png"> </img>
+   <img src ="https://github.com/jfocha/book-scouts/blob/main/client/src/assets/images/Screenshot4.png"> </img>
 
  
 ## Deployment 
